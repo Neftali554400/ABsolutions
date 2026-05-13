@@ -52,6 +52,7 @@
       background: white;
       -webkit-font-smoothing: antialiased;
       margin: 0;
+      overflow-x: hidden;
     }
 
     /* ── NAV ── */
@@ -1004,69 +1005,65 @@
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 1024px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+
+    /* ≤ 1023px: collapse two-column grids, hide service panel */
+    @media (max-width: 1023px) {
+      .hero { min-height: auto; }
+      .hero-inner { grid-template-columns: 1fr; gap: 0; padding: 56px 32px 72px; }
       .service-panel { display: none; }
       .about-inner { grid-template-columns: 1fr; gap: 48px; }
       .contact-inner { grid-template-columns: 1fr; gap: 48px; }
       .epic-inner { grid-template-columns: 1fr; gap: 48px; }
       .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
-    }
-
-    @media (min-width: 640px) and (max-width: 1023px) {
       .services-grid { grid-template-columns: repeat(2, 1fr); }
-      .team-grid { grid-template-columns: repeat(2, 1fr); }
       .team-cards-grid { grid-template-columns: repeat(2, 1fr); }
       .metric-row { grid-template-columns: repeat(2, 1fr); }
     }
 
-    @media (max-width: 639px) {
-      .section { padding: 64px 20px; }
-      .nav-inner { padding: 0 20px; }
-      .hero-inner { padding: 60px 20px; }
-      .about-section { padding: 64px 20px; }
-      .epic-section { padding: 64px 20px; }
-      .contact-section { padding: 64px 20px; }
-      footer { padding: 48px 20px 28px; }
-      .services-grid { grid-template-columns: 1fr; }
-      .team-grid { grid-template-columns: 1fr; }
-      .team-cards-grid { grid-template-columns: 1fr; }
-      .about-stats-grid { grid-template-columns: repeat(3, 1fr); }
-      .footer-top { grid-template-columns: 1fr; gap: 32px; }
-      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
-      .form-row { grid-template-columns: 1fr; }
-      .contact-form { padding: 28px 20px; }
-      .metric-row { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 767px) {
-      .section { padding: 64px 20px; }
-      .nav-inner { padding: 0 20px; }
-      .hero-inner { padding: 60px 20px; }
-      .about-section { padding: 64px 20px; }
-      .epic-section { padding: 64px 20px; }
-      .contact-section { padding: 64px 20px; }
-      footer { padding: 48px 20px 28px; }
-      .nav-links, .btn-nav { display: none; }
-      .mobile-toggle { display: flex; }
-      .footer-top { grid-template-columns: 1fr; gap: 32px; }
-      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
-      .form-row { grid-template-columns: 1fr; }
-      .contact-form { padding: 28px 20px; }
-    }
-
-    @media (min-width: 768px) {
-      .mobile-toggle { display: none; }
-    }
-
+    /* ≥ 1024px: restore full desktop grids */
     @media (min-width: 1024px) {
+      .mobile-toggle { display: none !important; }
       .services-grid { grid-template-columns: repeat(3, 1fr); }
       .team-cards-grid { grid-template-columns: repeat(4, 1fr); }
     }
 
+    /* ≤ 767px: show hamburger, hide desktop nav */
+    @media (max-width: 767px) {
+      .nav-inner { padding: 0 20px; }
+      .nav-links, .btn-nav { display: none; }
+      .mobile-toggle { display: flex; }
+      .hero-inner { padding: 44px 20px 60px; }
+      .section { padding: 56px 20px; }
+      .about-section { padding: 56px 20px; }
+      .epic-section { padding: 56px 20px; }
+      .contact-section { padding: 56px 20px; }
+      footer { padding: 48px 20px 28px; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form { padding: 28px 20px; }
+      .service-card { padding: 24px 20px; }
+    }
+
+    /* ≥ 768px: hide hamburger */
+    @media (min-width: 768px) {
+      .mobile-toggle { display: none; }
+    }
+
+    /* ≤ 639px: single column services, 2-col team */
+    @media (max-width: 639px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .team-cards-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-stats-grid { grid-template-columns: repeat(3, 1fr); }
+      .metric-row { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ≤ 480px: wrap hero stats, keep 2-col team */
     @media (max-width: 480px) {
-      .hero-stats { gap: 20px; }
-      .about-stats-grid { grid-template-columns: 1fr; }
+      .hero-stats { flex-wrap: wrap; gap: 12px 20px; }
+      .hero-stat-divider { display: none; }
+      .about-stats-grid { grid-template-columns: repeat(3, 1fr); }
+      .team-cards-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
