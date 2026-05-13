@@ -879,15 +879,28 @@
 
     /* ── MOBILE MENU ── */
     .mobile-menu {
-      display: none;
+      display: flex;
+      flex-direction: column;
       position: fixed;
       inset: 0;
       z-index: 99;
       background: var(--navy-dark);
-      padding: 24px 24px;
-      flex-direction: column;
+      padding: 24px;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1),
+                  opacity 0.3s ease,
+                  visibility 0s linear 0.35s;
     }
-    .mobile-menu.open { display: flex; }
+    .mobile-menu.open {
+      visibility: visible;
+      opacity: 1;
+      transform: translateX(0);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1),
+                  opacity 0.3s ease,
+                  visibility 0s linear 0s;
+    }
     .mobile-menu-header {
       display: flex;
       align-items: center;
@@ -920,7 +933,20 @@
       text-align: center;
       display: block;
     }
+    .mobile-cta:hover { background: var(--red-dark); }
     .mobile-cta:focus-visible { outline: 3px solid rgba(197,37,58,0.4); outline-offset: 2px; }
+
+    /* Hamburger icon animation */
+    .hamburger { display: flex; flex-direction: column; gap: 5px; width: 22px; }
+    .hamburger span {
+      display: block; height: 2px; background: var(--navy);
+      border-radius: 2px;
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.2s ease;
+      transform-origin: center;
+    }
+    .hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     /* ── STAFF / TEAM ── */
     .staff-section {
@@ -1086,10 +1112,10 @@
 
     <a href="#contact" class="btn-nav">Contact Us</a>
 
-    <button class="mobile-toggle" aria-label="Open menu" onclick="openMenu()" style="background:none;border:none;cursor:pointer;padding:8px;color:var(--navy);">
-      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-      </svg>
+    <button class="mobile-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" onclick="toggleMenu()" style="background:none;border:none;cursor:pointer;padding:8px;">
+      <div class="hamburger" id="hamburger" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
     </button>
   </div>
 </nav>
@@ -1658,14 +1684,30 @@
 
 
 <script>
+  const menu = document.getElementById('mobileMenu');
+  const toggle = document.getElementById('menuToggle');
+  const hamburger = document.getElementById('hamburger');
+
   function openMenu() {
-    document.getElementById('mobileMenu').classList.add('open');
+    menu.classList.add('open');
+    hamburger.classList.add('is-open');
+    toggle.setAttribute('aria-label', 'Close menu');
+    toggle.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
   }
+
   function closeMenu() {
-    document.getElementById('mobileMenu').classList.remove('open');
+    menu.classList.remove('open');
+    hamburger.classList.remove('is-open');
+    toggle.setAttribute('aria-label', 'Open menu');
+    toggle.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   }
+
+  function toggleMenu() {
+    menu.classList.contains('open') ? closeMenu() : openMenu();
+  }
+
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeMenu();
   });
