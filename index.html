@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AB Solutions, Inc. — Insurance Agency Operations Consulting</title>
+  <link rel="icon" type="image/jpeg" href="DESIGN ASSESTS/LOGO/favicon.jpg">
+  <meta name="description" content="AB Solutions, Inc. provides expert operations consulting for independent insurance agencies using Applied Systems Epic. Streamline your agency with proven expertise.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: { DEFAULT: '#1B2A4A', dark: '#111C35', light: '#253562' },
+            brand: { red: '#C5253A', 'red-dark': '#9E1C2E', gold: '#C4932A' },
+            steel: '#3D4B63',
+            surface: '#F4F5F7',
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            body: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --navy: #1B2A4A;
+      --navy-dark: #111C35;
+      --navy-light: #253562;
+      --red: #C5253A;
+      --red-dark: #9E1C2E;
+      --gold: #C4932A;
+      --steel: #3D4B63;
+      --surface: #F4F5F7;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--navy);
+      background: white;
+      -webkit-font-smoothing: antialiased;
+      margin: 0;
+    }
+
+    /* ── NAV ── */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.97);
+      border-bottom: 1px solid rgba(27,42,74,0.08);
+      box-shadow: 0 1px 0 rgba(27,42,74,0.04), 0 4px 24px rgba(27,42,74,0.06);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo img { height: 42px; display: block; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--steel);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 2px;
+      transition: color 0.15s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--red);
+      transition: width 0.2s ease;
+    }
+    .nav-link:hover { color: var(--navy); }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; border-radius: 2px; }
+
+    .btn-nav {
+      background: var(--red);
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 22px;
+      border-radius: 6px;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      box-shadow: 0 2px 6px rgba(197,37,58,0.25);
+      transition: background-color 0.15s ease, transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.15s ease;
+    }
+    .btn-nav:hover {
+      background: var(--red-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(197,37,58,0.3);
+    }
+    .btn-nav:focus-visible { outline: 3px solid rgba(197,37,58,0.4); outline-offset: 2px; }
+    .btn-nav:active { transform: translateY(0); }
+
+    /* ── HERO ── */
+    .hero {
+      background-color: var(--navy-dark);
+      background-image:
+        linear-gradient(rgba(11,18,38,0.82), rgba(11,18,38,0.82)),
+        radial-gradient(ellipse 100% 80% at 10% 50%, rgba(17,28,53,0.75) 0%, transparent 60%),
+        radial-gradient(ellipse 80% 100% at 90% 10%, rgba(17,28,53,0.70) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 60% at 55% 85%, rgba(196,147,42,0.05) 0%, transparent 45%),
+        url("DESIGN ASSESTS/images/header images/header image 2.jpg");
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      padding-top: 72px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='1' fill='%23ffffff' fill-opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow-line {
+      width: 36px;
+      height: 2px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .hero-eyebrow-text {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: clamp(44px, 5vw, 76px);
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      color: white;
+      margin: 0 0 12px 0;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 19px;
+      color: rgba(196,147,42,0.85);
+      margin: 0 0 28px 0;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-body {
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.62);
+      max-width: 460px;
+      margin: 0 0 44px 0;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 52px;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 8px -2px rgba(197,37,58,0.35), 0 8px 20px -4px rgba(197,37,58,0.2);
+      transition: background-color 0.15s ease, transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.15s ease;
+    }
+    .btn-primary:hover {
+      background: var(--red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px -2px rgba(197,37,58,0.4), 0 12px 28px -4px rgba(197,37,58,0.25);
+    }
+    .btn-primary:focus-visible { outline: 3px solid rgba(197,37,58,0.45); outline-offset: 2px; }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-ghost {
+      background: rgba(255,255,255,0.06);
+      color: white;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 14px 28px;
+      border-radius: 6px;
+      border: 1.5px solid rgba(255,255,255,0.18);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.3);
+      transform: translateY(-2px);
+    }
+    .btn-ghost:focus-visible { outline: 3px solid rgba(255,255,255,0.35); outline-offset: 2px; }
+    .btn-ghost:active { transform: translateY(0); }
+
+    .hero-stats {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      padding-top: 36px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .hero-stat-divider {
+      width: 1px;
+      height: 44px;
+      background: rgba(255,255,255,0.1);
+    }
+    .hero-stat-number {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 32px;
+      letter-spacing: -0.03em;
+      color: white;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .hero-stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.02em;
+    }
+
+    /* Service panel (right side of hero) */
+    .service-panel {
+      background: rgba(17,28,53,0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .panel-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 24px;
+    }
+    .panel-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .panel-item:last-of-type { border-bottom: none; }
+    .panel-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(196,147,42,0.12);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--gold);
+    }
+    .panel-item-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 3px;
+    }
+    .panel-item-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.5;
+    }
+
+    .panel-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 13px 20px;
+      margin-top: 24px;
+      background: var(--red);
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(197,37,58,0.3);
+      transition: background-color 0.15s ease, transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .panel-cta:hover { background: var(--red-dark); transform: translateY(-2px); }
+    .panel-cta:focus-visible { outline: 3px solid rgba(197,37,58,0.4); outline-offset: 2px; }
+    .panel-cta:active { transform: translateY(0); }
+
+    /* ── SERVICES SECTION ── */
+    .section {
+      padding: 96px 32px;
+    }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+
+    .section-header { margin-bottom: 64px; }
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: clamp(32px, 3.5vw, 52px);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--navy);
+      margin: 0 0 16px 0;
+    }
+    .section-body {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--steel);
+      max-width: 560px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: white;
+      border: 1px solid rgba(27,42,74,0.08);
+      border-radius: 14px;
+      padding: 32px 28px;
+      box-shadow: 0 2px 4px rgba(27,42,74,0.04), 0 8px 20px -6px rgba(27,42,74,0.07);
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(27,42,74,0.06), 0 20px 40px -8px rgba(27,42,74,0.13);
+    }
+    .service-card:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; border-radius: 14px; }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      background: rgba(27,42,74,0.06);
+      color: var(--navy);
+    }
+    .card-icon.accent { background: rgba(197,37,58,0.08); color: var(--red); }
+    .card-icon.gold { background: rgba(196,147,42,0.1); color: var(--gold); }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--navy);
+      margin: 0 0 10px 0;
+      letter-spacing: -0.01em;
+    }
+    .card-body {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--steel);
+    }
+
+    /* ── ABOUT SECTION ── */
+    .about-section {
+      background: var(--navy-dark);
+      background-image:
+        radial-gradient(ellipse 80% 60% at 90% 40%, rgba(37,53,98,0.6) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 70% at 5% 70%, rgba(196,147,42,0.05) 0%, transparent 50%);
+      padding: 96px 32px;
+    }
+    .about-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .about-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: clamp(32px, 3.2vw, 48px);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: white;
+      margin: 0 0 24px 0;
+    }
+    .about-title em { font-style: italic; color: var(--gold); }
+    .about-body {
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 20px;
+    }
+
+    .about-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 48px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .about-stat {
+      background: rgba(255,255,255,0.03);
+      padding: 28px 20px;
+      text-align: center;
+    }
+    .about-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: white;
+      margin-bottom: 4px;
+    }
+    .about-stat-num em { color: var(--gold); font-style: normal; }
+    .about-stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* Team grid */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .team-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .team-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(196,147,42,0.15);
+      border: 2px solid rgba(196,147,42,0.2);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--gold);
+    }
+    .team-name {
+      font-weight: 600;
+      font-size: 15px;
+      color: white;
+      margin-bottom: 3px;
+    }
+    .team-role {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ── EPIC FOCUS SECTION ── */
+    .epic-section {
+      background: var(--surface);
+      padding: 80px 32px;
+    }
+    .epic-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .epic-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(197,37,58,0.07);
+      border: 1px solid rgba(197,37,58,0.15);
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 7px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+    .epic-list {
+      list-style: none;
+      margin: 24px 0 0 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .epic-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--steel);
+      line-height: 1.55;
+    }
+    .check-icon {
+      width: 20px;
+      height: 20px;
+      background: rgba(197,37,58,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+      color: var(--red);
+    }
+
+    .epic-visual {
+      background: white;
+      border: 1px solid rgba(27,42,74,0.08);
+      border-radius: 16px;
+      padding: 36px;
+      box-shadow: 0 4px 8px rgba(27,42,74,0.04), 0 20px 48px -8px rgba(27,42,74,0.1);
+    }
+    .epic-logo-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(27,42,74,0.08);
+    }
+    .epic-logo-badge {
+      background: var(--navy);
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+    .epic-connector {
+      font-size: 12px;
+      color: rgba(27,42,74,0.35);
+    }
+    .ab-badge {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--red);
+      font-weight: 600;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .metric-box {
+      background: var(--surface);
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .metric-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--navy);
+      margin-bottom: 3px;
+    }
+    .metric-label {
+      font-size: 12px;
+      color: var(--steel);
+    }
+
+    /* ── CONTACT SECTION ── */
+    .contact-section {
+      padding: 96px 32px;
+      background: white;
+    }
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 80px;
+    }
+    .contact-info-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+    .contact-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: clamp(32px, 3vw, 46px);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--navy);
+      margin: 0 0 20px 0;
+    }
+    .contact-body {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--steel);
+      margin-bottom: 36px;
+    }
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .contact-detail-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(27,42,74,0.06);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--navy);
+    }
+    .contact-detail-label {
+      font-size: 12px;
+      color: var(--steel);
+      margin-bottom: 3px;
+    }
+    .contact-detail-value {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--navy);
+      text-decoration: none;
+    }
+    .contact-detail-value:hover { color: var(--red); }
+
+    /* Contact form */
+    .contact-form {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 44px;
+      border: 1px solid rgba(27,42,74,0.07);
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 7px;
+      letter-spacing: 0.01em;
+    }
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      background: white;
+      border: 1.5px solid rgba(27,42,74,0.12);
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      color: var(--navy);
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(197,37,58,0.1);
+    }
+    .form-input::placeholder { color: rgba(61,75,99,0.4); }
+    textarea.form-input { resize: vertical; min-height: 120px; }
+
+    .form-submit {
+      width: 100%;
+      background: var(--red);
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 15px 28px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.01em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 10px rgba(197,37,58,0.28);
+      transition: background-color 0.15s ease, transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.15s ease;
+      font-family: 'Inter', sans-serif;
+    }
+    .form-submit:hover {
+      background: var(--red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(197,37,58,0.32);
+    }
+    .form-submit:focus-visible { outline: 3px solid rgba(197,37,58,0.4); outline-offset: 2px; }
+    .form-submit:active { transform: translateY(0); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy-dark);
+      padding: 64px 32px 36px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 64px;
+      margin-bottom: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-logo { margin-bottom: 20px; display: inline-block; }
+    .footer-logo img { height: 38px; display: block; border-radius: 6px; }
+    .footer-desc {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.4);
+      max-width: 280px;
+    }
+    .footer-col-title {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 20px;
+    }
+    .footer-links { list-style: none; margin: 0; padding: 0; }
+    .footer-links li { margin-bottom: 10px; }
+    .footer-links a {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+    .footer-links a:hover { color: white; }
+    .footer-links a:focus-visible { outline: 2px solid rgba(255,255,255,0.3); outline-offset: 2px; border-radius: 2px; }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-copy {
+      font-size: 13px;
+      color: rgba(255,255,255,0.25);
+    }
+    .footer-tagline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: rgba(196,147,42,0.5);
+    }
+
+    /* ── MOBILE MENU ── */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: var(--navy-dark);
+      padding: 24px 24px;
+      flex-direction: column;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+    .mobile-menu-links { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+    .mobile-link {
+      font-size: 24px;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      letter-spacing: -0.02em;
+      transition: color 0.15s ease;
+    }
+    .mobile-link:hover { color: var(--gold); }
+    .mobile-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 2px; }
+    .mobile-cta {
+      margin-top: 32px;
+      background: var(--red);
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 16px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      text-align: center;
+      display: block;
+    }
+    .mobile-cta:focus-visible { outline: 3px solid rgba(197,37,58,0.4); outline-offset: 2px; }
+
+    /* ── STAFF / TEAM ── */
+    .staff-section {
+      background: var(--surface);
+      padding: 96px 32px;
+    }
+
+    .team-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+    }
+
+    .team-member-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(27,42,74,0.07);
+      box-shadow: 0 2px 4px rgba(27,42,74,0.04), 0 8px 24px -6px rgba(27,42,74,0.08);
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 36px 24px 28px;
+    }
+    .team-member-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 4px 8px rgba(27,42,74,0.06), 0 20px 40px -8px rgba(27,42,74,0.14);
+    }
+
+    .team-photo-wrap {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 8px rgba(27,42,74,0.1), 0 12px 28px -6px rgba(27,42,74,0.18);
+      border: 4px solid white;
+      outline: 2px solid rgba(27,42,74,0.08);
+    }
+    .team-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .team-member-card:hover .team-photo {
+      transform: scale(1.05);
+    }
+    .team-photo-overlay {
+      display: none;
+    }
+
+    .team-member-info {
+      text-align: center;
+    }
+    .team-member-name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 19px;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      margin: 0 0 4px 0;
+    }
+    .team-member-role {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin: 0 0 14px 0;
+    }
+    .team-member-bio {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: var(--steel);
+      margin: 0;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .service-panel { display: none; }
+      .about-inner { grid-template-columns: 1fr; gap: 48px; }
+      .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+      .epic-inner { grid-template-columns: 1fr; gap: 48px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+
+    @media (min-width: 640px) and (max-width: 1023px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .team-cards-grid { grid-template-columns: repeat(2, 1fr); }
+      .metric-row { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 639px) {
+      .section { padding: 64px 20px; }
+      .nav-inner { padding: 0 20px; }
+      .hero-inner { padding: 60px 20px; }
+      .about-section { padding: 64px 20px; }
+      .epic-section { padding: 64px 20px; }
+      .contact-section { padding: 64px 20px; }
+      footer { padding: 48px 20px 28px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr; }
+      .team-cards-grid { grid-template-columns: 1fr; }
+      .about-stats-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form { padding: 28px 20px; }
+      .metric-row { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 767px) {
+      .section { padding: 64px 20px; }
+      .nav-inner { padding: 0 20px; }
+      .hero-inner { padding: 60px 20px; }
+      .about-section { padding: 64px 20px; }
+      .epic-section { padding: 64px 20px; }
+      .contact-section { padding: 64px 20px; }
+      footer { padding: 48px 20px 28px; }
+      .nav-links, .btn-nav { display: none; }
+      .mobile-toggle { display: flex; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form { padding: 28px 20px; }
+    }
+
+    @media (min-width: 768px) {
+      .mobile-toggle { display: none; }
+    }
+
+    @media (min-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(3, 1fr); }
+      .team-cards-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .hero-stats { gap: 20px; }
+      .about-stats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─────────── NAVIGATION ─────────── -->
+<nav id="navbar" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" aria-label="AB Solutions, Inc. — Home">
+      <img src="DESIGN ASSESTS/LOGO/AB-Logo---reduced-edges.png" alt="AB Solutions, Inc.">
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="#services" class="nav-link">Services</a></li>
+      <li><a href="#staff" class="nav-link">Staff</a></li>
+      <li><a href="#downloads" class="nav-link">Downloads</a></li>
+      <li><a href="#epic-proposals" class="nav-link">Epic Proposals</a></li>
+      <li><a href="#epic-reporting" class="nav-link">Epic Reporting</a></li>
+    </ul>
+
+    <a href="#contact" class="btn-nav">Contact Us</a>
+
+    <button class="mobile-toggle" aria-label="Open menu" onclick="openMenu()" style="background:none;border:none;cursor:pointer;padding:8px;color:var(--navy);">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation menu">
+  <div class="mobile-menu-header">
+    <img src="DESIGN ASSESTS/LOGO/AB-Logo---reduced-edges.png" alt="AB Solutions, Inc." style="height:38px;filter:brightness(0) invert(1);opacity:0.85;">
+    <button onclick="closeMenu()" aria-label="Close menu" style="background:none;border:none;cursor:pointer;color:white;padding:8px;">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+  <nav class="mobile-menu-links">
+    <a href="#services" class="mobile-link" onclick="closeMenu()">Services</a>
+    <a href="#staff" class="mobile-link" onclick="closeMenu()">Staff</a>
+    <a href="#downloads" class="mobile-link" onclick="closeMenu()">Downloads</a>
+    <a href="#epic-proposals" class="mobile-link" onclick="closeMenu()">Epic Proposals</a>
+    <a href="#epic-reporting" class="mobile-link" onclick="closeMenu()">Epic Reporting</a>
+  </nav>
+  <a href="#contact" class="mobile-cta" onclick="closeMenu()">Contact Us</a>
+</div>
+
+
+<!-- ─────────── HERO ─────────── -->
+<section id="hero" class="hero" aria-labelledby="hero-heading">
+  <div class="hero-inner">
+
+    <!-- Left: Copy + CTAs -->
+    <div>
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line" aria-hidden="true"></div>
+        <span class="hero-eyebrow-text">Applied Systems Epic Specialists</span>
+      </div>
+
+      <h1 class="hero-title" id="hero-heading">
+        Agency Operations<br>
+        <em>Consulting</em>
+      </h1>
+
+      <p class="hero-sub">Insurance Expertise, Simplified.</p>
+
+      <p class="hero-body">
+        We help independent insurance agencies unlock the full potential of Applied Systems Epic. With decades of hands-on agency experience, we streamline operations, improve workflows, and drive measurable results.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="#services" class="btn-primary">
+          Explore Services
+          <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+          </svg>
+        </a>
+        <a href="#contact" class="btn-ghost">Get in Touch</a>
+      </div>
+
+      <div class="hero-stats" aria-label="Key statistics">
+        <div>
+          <div class="hero-stat-number">32+</div>
+          <div class="hero-stat-label">Years Combined Experience</div>
+        </div>
+        <div class="hero-stat-divider" aria-hidden="true"></div>
+        <div>
+          <div class="hero-stat-number">100s</div>
+          <div class="hero-stat-label">Agencies Served</div>
+        </div>
+        <div class="hero-stat-divider" aria-hidden="true"></div>
+        <div>
+          <div class="hero-stat-number">4</div>
+          <div class="hero-stat-label">Expert Consultants</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Service Panel -->
+    <div class="service-panel" aria-label="Featured services">
+      <p class="panel-label">How We Help</p>
+
+      <div class="panel-item">
+        <div class="panel-icon" aria-hidden="true">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
+        </div>
+        <div>
+          <div class="panel-item-title">Agency Management System Setup</div>
+          <div class="panel-item-desc">Epic configuration, workflows & communication</div>
+        </div>
+      </div>
+
+      <div class="panel-item">
+        <div class="panel-icon" aria-hidden="true">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg>
+        </div>
+        <div>
+          <div class="panel-item-title">Reporting & Data Extraction</div>
+          <div class="panel-item-desc">Actionable insights from your Epic data</div>
+        </div>
+      </div>
+
+      <div class="panel-item">
+        <div class="panel-icon" aria-hidden="true">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z"/></svg>
+        </div>
+        <div>
+          <div class="panel-item-title">Proposals & Form Letters</div>
+          <div class="panel-item-desc">Customized templates and document workflows</div>
+        </div>
+      </div>
+
+      <div class="panel-item">
+        <div class="panel-icon" aria-hidden="true">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 3.741-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg>
+        </div>
+        <div>
+          <div class="panel-item-title">Staff Training</div>
+          <div class="panel-item-desc">Epic proficiency and operational best practices</div>
+        </div>
+      </div>
+
+      <a href="#services" class="panel-cta">
+        View All 9 Services
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ─────────── SERVICES ─────────── -->
+<section id="services" class="section" aria-labelledby="services-heading">
+  <div class="section-inner">
+    <header class="section-header">
+      <p class="section-label">What We Do</p>
+      <h2 class="section-title" id="services-heading">
+        Comprehensive Agency<br>Operations Services
+      </h2>
+      <p class="section-body">
+        From Epic system setup to ongoing staff development, we cover every facet of your agency's operations — so you can focus on serving your clients.
+      </p>
+    </header>
+
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="card-icon" aria-hidden="true">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
+        </div>
+        <h3 class="card-title">Agency Management System Setup & Communication</h3>
+        <p class="card-body">Your Agency Management System is a powerful and flexible tool. But it must be set up properly in order to realize its full potential. We leverage decades of experience across hundreds of agencies to provide perspective on optimal system configuration.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="card-icon accent" aria-hidden="true">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg>
+        </div>
+        <h3 class="card-title">Reporting & Data Extraction</h3>
+        <p class="card-body">Building reports and data extraction needs can be difficult and time-consuming. We assist with internal Epic reports and Bulk Data Extract functions.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="card-icon gold" aria-hidden="true">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+        </div>
+        <h3 class="card-title">Proposals & Form Letters</h3>
+        <p class="card-body">Integrated Proposals and Form Letters will save staff time and reduce your agency's E&O exposure. Hand-crafted documents consume significant staff resources annually.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="card-icon" aria-hidden="true">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z"/></svg>
+        </div>
+        <h3 class="card-title">Accounting Services</h3>
+        <p class="card-body">For any business to succeed over the long term, accurate financial records are not optional. We provide staff training, problem area cleanup, Company Payables, Accounts Receivables, and Producer Payables management.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="card-icon accent" aria-hidden="true">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 3.741-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg>
+        </div>
+        <h3 class="card-title">Staff Training</h3>
+        <p class="card-body">We provide instruction on procedures and the advanced agency-specific processes we've helped develop for your agency.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="card-icon gold" aria-hidden="true">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg>
+        </div>
+        <h3 class="card-title">Outsourced Accounting</h3>
+        <p class="card-body">If the time and expense required to have well-trained in-house accounting staff are too high, we can take over the routine handling of the more difficult accounting tasks for your agency.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="card-icon" aria-hidden="true">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 2.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125m16.5 5.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg>
+        </div>
+        <h3 class="card-title">Agency Management Data Clean Up</h3>
+        <p class="card-body">A neat and orderly agency management system is an essential component for maximizing staff productivity. We help remove outdated items from key areas including Activities, Attachment Folders, Policy Types, Statuses, Templates, and Companies.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="card-icon accent" aria-hidden="true">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3 1.5 1.5 3-3.75"/></svg>
+        </div>
+        <h3 class="card-title">Quality Assurance Programs</h3>
+        <p class="card-body">A formal quality assurance program must be implemented to maximize the return on your investment in procedures and staff training. We build structured QA programs based on your written procedure manuals.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="card-icon gold" aria-hidden="true">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z"/></svg>
+        </div>
+        <h3 class="card-title">Procedures Development</h3>
+        <p class="card-body">We lead collaborative on-site meetings with management and staff to create customized procedure manuals through group discussion — not generic templates.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ─────────── EPIC EXPERTISE ─────────── -->
+<section id="epic" class="epic-section" aria-labelledby="epic-heading">
+  <div class="epic-inner">
+    <div>
+      <div class="epic-badge" aria-label="Specialization">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"/></svg>
+        Applied Systems Epic
+      </div>
+      <h2 class="section-title" id="epic-heading" style="margin-bottom:20px;">
+        Deep expertise in<br><span style="font-style:italic;color:var(--red);">the system you use</span>
+      </h2>
+      <p class="section-body" style="margin-bottom:8px;">
+        Our consultants aren't generalists — we come from the independent insurance agency world and have spent decades working inside Applied Systems Epic. We know the system's strengths, its quirks, and exactly how to align it with your agency's real-world workflows.
+      </p>
+      <ul class="epic-list" aria-label="Epic expertise areas">
+        <li>
+          <span class="check-icon" aria-hidden="true">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+          </span>
+          Epic system configuration, customization, and optimization
+        </li>
+        <li>
+          <span class="check-icon" aria-hidden="true">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+          </span>
+          Report writing and data extraction for management insights
+        </li>
+        <li>
+          <span class="check-icon" aria-hidden="true">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+          </span>
+          Workflow design aligned to Epic's module structure
+        </li>
+        <li>
+          <span class="check-icon" aria-hidden="true">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+          </span>
+          Migration support, version upgrades, and new office onboarding
+        </li>
+        <li>
+          <span class="check-icon" aria-hidden="true">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+          </span>
+          Staff training built around your specific Epic setup
+        </li>
+      </ul>
+    </div>
+
+    <div class="epic-visual">
+      <div class="epic-logo-row">
+        <div class="epic-logo-badge">Epic</div>
+        <span class="epic-connector">by Applied Systems</span>
+        <span style="margin-left:auto;" class="ab-badge">AB Solutions</span>
+      </div>
+      <div class="metric-row">
+        <div class="metric-box">
+          <div class="metric-num">32+</div>
+          <div class="metric-label">Years Epic Experience</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-num">100s</div>
+          <div class="metric-label">Agencies on Epic Helped</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-num">9</div>
+          <div class="metric-label">Service Specializations</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-num">4</div>
+          <div class="metric-label">Dedicated Consultants</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─────────── STAFF ─────────── -->
+<section id="staff" class="staff-section" aria-labelledby="staff-heading">
+  <div class="section-inner">
+    <header class="section-header" style="text-align:center; max-width:600px; margin:0 auto 64px;">
+      <p class="section-label">Our Team</p>
+      <h2 class="section-title" id="staff-heading">Meet the Consultants</h2>
+      <p class="section-body" style="margin:0 auto;">Every member of our team comes from an insurance agency background — with hands-on experience inside Applied Systems Epic.</p>
+    </header>
+
+    <div class="team-cards-grid">
+
+      <div class="team-member-card">
+        <div class="team-photo-wrap">
+          <img src="team photo/marcia-priest.png" alt="Marcia Priest CIC, AAM" class="team-photo">
+          <div class="team-photo-overlay" aria-hidden="true"></div>
+        </div>
+        <div class="team-member-info">
+          <h3 class="team-member-name">Marcia Priest <span style="font-size:14px;font-weight:600;color:var(--steel);font-style:normal;">CIC, AAM</span></h3>
+          <p class="team-member-role">Lead Consultant</p>
+          <p class="team-member-bio">Marcia has been in the insurance business for a long time, starting with her father's agency in the 1970s. She has worked with Applied Systems products since 1992 and has been a consultant with AB Solutions for 15 years.</p>
+        </div>
+      </div>
+
+      <div class="team-member-card">
+        <div class="team-photo-wrap">
+          <img src="team photo/renee-foo.jpg" alt="Reneé Foo" class="team-photo">
+          <div class="team-photo-overlay" aria-hidden="true"></div>
+        </div>
+        <div class="team-member-info">
+          <h3 class="team-member-name">Reneé Foo</h3>
+          <p class="team-member-role">Senior Consultant</p>
+          <p class="team-member-bio">Consultant, author, and speaker with over 25 years' experience on Applied Systems products. Reneé coaches agencies on day-to-day practices, data integrity, and branding as it relates to template designs for documents, proposals, and summaries of insurance.</p>
+        </div>
+      </div>
+
+      <div class="team-member-card">
+        <div class="team-photo-wrap">
+          <img src="team photo/dawn-augustine.jpg" alt="Dawn Augustine" class="team-photo">
+          <div class="team-photo-overlay" aria-hidden="true"></div>
+        </div>
+        <div class="team-member-info">
+          <h3 class="team-member-name">Dawn Augustine</h3>
+          <p class="team-member-role">Operations Specialist</p>
+          <p class="team-member-bio">A third-generation insurance professional who has used Applied Systems products for accounting for over 25 years.</p>
+        </div>
+      </div>
+
+      <div class="team-member-card">
+        <div class="team-photo-wrap">
+          <img src="team photo/todd-arnold.jpg" alt="Todd Arnold" class="team-photo">
+          <div class="team-photo-overlay" aria-hidden="true"></div>
+        </div>
+        <div class="team-member-info">
+          <h3 class="team-member-name">Todd Arnold</h3>
+          <p class="team-member-role">Systems Specialist</p>
+          <p class="team-member-bio">With 29+ years in the insurance industry, Todd has served as network administrator, account manager, agency accountant, producer, and Applied Systems trainer. He co-founded AB Solutions in 1996 and is well known for his expertise in reporting and integrated documents.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── ABOUT / TEAM ─────────── -->
+<section id="about" class="about-section" aria-labelledby="about-heading">
+  <div class="about-inner">
+    <div>
+      <p class="about-label">Who We Are</p>
+      <h2 class="about-title" id="about-heading">
+        Consultants who've lived<br>
+        <em>agency life</em>
+      </h2>
+      <p class="about-body">
+        Every consultant at AB Solutions comes from an insurance agency background. We've managed the workflows, trained the staff, and worked inside the same Epic system your team uses every day.
+      </p>
+      <p class="about-body">
+        That firsthand experience means we don't waste time getting up to speed — we arrive ready to diagnose, recommend, and deliver. Our work and perspective span the full spectrum of agency operations, so we can offer guidance on almost every aspect of your business.
+      </p>
+
+      <div class="about-stats-grid" aria-label="Experience statistics">
+        <div class="about-stat">
+          <div class="about-stat-num"><em>32</em>+</div>
+          <div class="about-stat-label">Years Combined Experience</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">100<em>s</em></div>
+          <div class="about-stat-label">Agencies Served</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num"><em>4</em></div>
+          <div class="about-stat-label">Expert Consultants</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="team-grid" aria-label="Our team">
+        <div class="team-card">
+          <div class="team-avatar" aria-hidden="true">MP</div>
+          <div>
+            <div class="team-name">Marcia Priest</div>
+            <div class="team-role">Lead Consultant</div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" aria-hidden="true">RF</div>
+          <div>
+            <div class="team-name">Reneé Foo</div>
+            <div class="team-role">Senior Consultant</div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" aria-hidden="true">DA</div>
+          <div>
+            <div class="team-name">Dawn Augustine</div>
+            <div class="team-role">Operations Specialist</div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" aria-hidden="true">TA</div>
+          <div>
+            <div class="team-name">Todd Arnold</div>
+            <div class="team-role">Systems Specialist</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:28px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:28px;">
+        <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:17px;color:rgba(255,255,255,0.75);line-height:1.65;margin:0 0 16px 0;">
+          "Our work and perspective span the full spectrum of agency operations — we can offer guidance on almost every aspect of your agency's business."
+        </p>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:32px;height:2px;background:var(--gold);"></div>
+          <span style="font-size:12px;color:rgba(255,255,255,0.35);letter-spacing:0.05em;">AB Solutions, Inc.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─────────── DOWNLOADS (placeholder) ─────────── -->
+<div id="downloads"></div>
+
+<!-- ─────────── EPIC PROPOSALS (placeholder) ─────────── -->
+<div id="epic-proposals"></div>
+
+<!-- ─────────── EPIC REPORTING (placeholder) ─────────── -->
+<div id="epic-reporting"></div>
+
+<!-- ─────────── CONTACT ─────────── -->
+<section id="contact" class="contact-section" aria-labelledby="contact-heading">
+  <div class="contact-inner">
+    <div>
+      <p class="contact-info-label">Get In Touch</p>
+      <h2 class="contact-title" id="contact-heading">
+        Let's talk about your agency
+      </h2>
+      <p class="contact-body">
+        Tell us about your Epic setup, your operational challenges, and your goals. We'll help you figure out the best path forward.
+      </p>
+
+      <div class="contact-detail">
+        <div class="contact-detail-icon" aria-hidden="true">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>
+        </div>
+        <div>
+          <div class="contact-detail-label">Office Address</div>
+          <div class="contact-detail-value">PO Box 1581, Spokane Valley, WA 99037</div>
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <div class="contact-detail-icon" aria-hidden="true">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+        </div>
+        <div>
+          <div class="contact-detail-label">Email</div>
+          <a href="mailto:info@absolutionsinc.com" class="contact-detail-value">info@absolutionsinc.com</a>
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <div class="contact-detail-icon" aria-hidden="true">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/></svg>
+        </div>
+        <div>
+          <div class="contact-detail-label">Phone</div>
+          <a href="tel:+15094570700" class="contact-detail-value">(509) 457-0700</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <form action="#" method="post" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" class="form-input" placeholder="Jane" autocomplete="given-name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Smith" autocomplete="family-name" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <input type="email" id="email" name="email" class="form-input" placeholder="jane@youragency.com" autocomplete="email" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="agency">Agency Name</label>
+          <input type="text" id="agency" name="agency" class="form-input" placeholder="Smith Insurance Agency">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="message">How can we help?</label>
+          <textarea id="message" name="message" class="form-input" placeholder="Tell us about your agency and what you're looking to improve…" rows="4"></textarea>
+        </div>
+        <button type="submit" class="form-submit">
+          Send Message
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─────────── FOOTER ─────────── -->
+<footer aria-label="Site footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <img src="DESIGN ASSESTS/LOGO/AB-Logo---reduced-edges.jpg" alt="AB Solutions, Inc.">
+        </div>
+        <p class="footer-desc">
+          Insurance Agency Operations Consulting for independent agencies using Applied Systems Epic. Spokane Valley, WA.
+        </p>
+      </div>
+
+      <div>
+        <p class="footer-col-title">Services</p>
+        <ul class="footer-links">
+          <li><a href="#services">AMS Setup & Communication</a></li>
+          <li><a href="#services">Reporting & Data Extraction</a></li>
+          <li><a href="#services">Proposals & Form Letters</a></li>
+          <li><a href="#services">Accounting Services</a></li>
+          <li><a href="#services">Staff Training</a></li>
+          <li><a href="#services">Quality Assurance</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="footer-col-title">Company</p>
+        <ul class="footer-links">
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#epic">Epic Expertise</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="mailto:info@absolutionsinc.com">info@absolutionsinc.com</a></li>
+          <li><a href="tel:+15094570700">(509) 457-0700</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 AB Solutions, Inc. All rights reserved. Spokane Valley, WA.</p>
+      <p class="footer-tagline">Insurance Expertise, Simplified.</p>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  function openMenu() {
+    document.getElementById('mobileMenu').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+</script>
+
+</body>
+</html>
